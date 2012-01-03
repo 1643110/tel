@@ -4,11 +4,33 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
     $("#textbox1").autocomplete({
-      source : "/auto_complete"
+      //source : "/auto_complete"
+        source: function(request, response) {
+            $.ajax({
+                url: "/auto_complete",
+                dataType: "json",
+                data: {term: request.term},
+                success: function(data) {
+                  //alert("test");
+                  //var users = new Array();
+                  var users = eval(data);
+                  
+                  for(var i=0,len=users.length;i<len;i++){
+                    alert(users[i].name + "  " + users[i].tel_number);
+                  }
+                  //foreach(var user in data){
+                  //  users.push(user);
+                  //}
+                  
+                  //table init
+                  
+                }
+            })
+        }
     });
   })
 </script>
-<table>
+<table id="tellist">
   <tr>
     <th>Div</th>
     <th>Name</th>
