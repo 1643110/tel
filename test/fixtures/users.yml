@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  div: MyString
+  name: MyString
+  tel_number: 1
+
+two:
+  div: MyString
+  name: MyString
+  tel_number: 1

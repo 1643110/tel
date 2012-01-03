@@ -1,0 +1,35 @@
+<h1>Listing users</h1>
+
+<input type="text" id="textbox1"></input>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("#textbox1").autocomplete({
+      source : "/auto_complete"
+    });
+  })
+</script>
+<table>
+  <tr>
+    <th>Div</th>
+    <th>Name</th>
+    <th>Tel number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.div %></td>
+    <td><%= user.name %></td>
+    <td><%= user.tel_number %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User', new_user_path %>
