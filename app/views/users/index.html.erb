@@ -11,19 +11,34 @@
                 dataType: "json",
                 data: {term: request.term},
                 success: function(data) {
-                  //alert("test");
-                  //var users = new Array();
                   var users = eval(data);
                   
-                  for(var i=0,len=users.length;i<len;i++){
-                    alert(users[i].name + "  " + users[i].tel_number);
-                  }
-                  //foreach(var user in data){
-                  //  users.push(user);
-                  //}
                   
                   //table init
-                  
+                  $("#tellist tbody").remove();
+                  $("#tellist").append("<tbody/>");
+                  for(var i=0,len=users.length;i<len;i++){
+                    var td_div = $("<td/>");
+                    var td_name = $("<td/>");
+                    var td_tel_number = $("<td/>");
+                    var td_show = $("<td/>");
+                    var td_edit = $("<td/>");
+                    var td_delete = $("<td/>");
+                    var tr = $("<tr/>");
+                    td_div.text(users[i].div);
+                    td_name.text(users[i].name);
+                    td_tel_number.text(users[i].tel_number);
+                    var show_href = $("<a/>").attr("href","/users/" + users[i].id).text("Show");
+                    td_show.append(show_href);
+                    var edit_href = $("<a/>").attr("href","/users/" + users[i].id + "/edit").text("Edit");
+                    td_edit.append(edit_href);
+                    var delete_href = $("<a/>").attr("href","/users/" + users[i].id).text("Destory");
+                    delete_href.attr("data-confirm","Are you sure?").attr("data-method","delete").attr("rel","nofollow");
+                    td_delete.append(delete_href);
+                    tr.append(td_div).append(td_name).append(td_tel_number).append(td_show).append(td_edit).append(td_delete); 
+                    $("#tellist tbody").append(tr);
+//                    alert(users[i].name + "  " + users[i].tel_number);
+                  }
                 }
             })
         }
@@ -31,6 +46,7 @@
   })
 </script>
 <table id="tellist">
+  <thead>
   <tr>
     <th>Div</th>
     <th>Name</th>
@@ -39,7 +55,8 @@
     <th></th>
     <th></th>
   </tr>
-
+  </thead>
+  <tbody>
 <% @users.each do |user| %>
   <tr>
     <td><%= user.div %></td>
@@ -50,6 +67,7 @@
     <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
+  </tbody>
 </table>
 
 <br />
