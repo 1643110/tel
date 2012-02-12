@@ -1,7 +1,7 @@
 Evo::Application.routes.draw do
   resources :users
 
-  get 'auto_complete' => 'users#auto_complete'
+  get 'quick_search' => 'users#quick_search'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -7,12 +7,11 @@
       //source : "/auto_complete"
         source: function(request, response) {
             $.ajax({
-                url: "/auto_complete",
+                url: "/quick_search",
                 dataType: "json",
                 data: {term: request.term},
                 success: function(data) {
                   var users = eval(data);
-                  
                   
                   //table init
                   $("#tellist tbody").remove();
@@ -20,14 +19,22 @@
                   for(var i=0,len=users.length;i<len;i++){
                     var td_div = $("<td/>");
                     var td_name = $("<td/>");
+                    var td_furigana = $("<td/>");
                     var td_tel_number = $("<td/>");
+                    var td_number050 = $("<td/>");
+                    var td_voipid = $("<td/>");
+                    var td_voippasswd = $("<td/>");
                     var td_show = $("<td/>");
                     var td_edit = $("<td/>");
                     var td_delete = $("<td/>");
                     var tr = $("<tr/>");
                     td_div.text(users[i].div);
                     td_name.text(users[i].name);
+                    td_furigana.text(users[i].furigana);
                     td_tel_number.text(users[i].tel_number);
+                    td_number050.text(users[i].number050);
+                    td_voipid.text(users[i].voipid);
+                    td_voippasswd.text(users[i].voippasswd);
                     var show_href = $("<a/>").attr("href","/users/" + users[i].id).text("Show");
                     td_show.append(show_href);
                     var edit_href = $("<a/>").attr("href","/users/" + users[i].id + "/edit").text("Edit");
@@ -35,7 +42,14 @@
                     var delete_href = $("<a/>").attr("href","/users/" + users[i].id).text("Destory");
                     delete_href.attr("data-confirm","Are you sure?").attr("data-method","delete").attr("rel","nofollow");
                     td_delete.append(delete_href);
-                    tr.append(td_div).append(td_name).append(td_tel_number).append(td_show).append(td_edit).append(td_delete); 
+                    tr.append(td_div)
+                      .append(td_name)
+                      .append(td_furigana)
+                      .append(td_tel_number)
+                      .append(td_number050)
+                      .append(td_voipid)
+                      .append(td_voippasswd)
+                      .append(td_show).append(td_edit).append(td_delete); 
                     $("#tellist tbody").append(tr);
 //                    alert(users[i].name + "  " + users[i].tel_number);
                   }
@@ -50,7 +64,11 @@
   <tr>
     <th>Div</th>
     <th>Name</th>
+    <th>Furigana</th>
     <th>Tel number</th>
+    <th>050 number</th>
+    <th>VoIP ID</th>
+    <th>VoIP passwd</th>
     <th></th>
     <th></th>
     <th></th>
@@ -61,7 +79,11 @@
   <tr>
     <td><%= user.div %></td>
     <td><%= user.name %></td>
+    <td><%= user.furigana %></td>
     <td><%= user.tel_number %></td>
+    <td><%= user.number050 %></td>
+    <td><%= user.voipid %></td>
+    <td><%= user.voippasswd %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>

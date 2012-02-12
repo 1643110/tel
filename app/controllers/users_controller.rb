@@ -82,9 +82,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # AUTO Complete
-  # AUTO Complete
-  def auto_complete
+  # Quick search
+  # Quick search
+  def quick_search
     if request.xhr?
       data = Array.new
       data_items = User.where('name like ?', "%#{params[:term]}%")
